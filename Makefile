@@ -6,7 +6,7 @@
 #    By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/08 14:41:45 by jjacobi           #+#    #+#              #
-#    Updated: 2016/12/08 16:18:15 by jjacobi          ###   ########.fr        #
+#    Updated: 2016/12/08 18:34:24 by jjacobi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ ifeq ($(shell uname),Darwin)
 else
 	ECHO	= echo -e
 endif
+
 all: $(NAME)
 
 $(NAME): $(OBJ) libft.a
