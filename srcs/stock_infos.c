@@ -6,16 +6,17 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 14:07:29 by jjacobi           #+#    #+#             */
-/*   Updated: 2016/12/14 18:41:41 by jjacobi          ###   ########.fr       */
+/*   Updated: 2016/12/14 18:57:50 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "ft_printf.h"
 
 static t_infos	*create_infos_struct(void)
 {
 	t_infos		*infos;
-	
+
 	if (!(infos = (t_infos*)malloc(sizeof(t_infos))))
 		return (NULL);
 	infos.argx = -1;
@@ -30,6 +31,20 @@ static t_infos	*create_infos_struct(void)
 	infos.lenght_modifs[1] = '\0';
 
 	return (infos);
+}
+
+static int	ft_custom_atoi(const char *nptr, int *size)
+{
+	int index;
+	int condition;
+	int result;
+
+	index = 0;
+	result = 0;
+	while ('0' <= nptr[index] && nptr[index] <= '9')
+		result = result * 10 + (nptr[index++] - '0');
+	size += index;
+	return (result);
 }
 
 t_infos		stock_infos(char *str)
