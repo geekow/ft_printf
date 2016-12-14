@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 16:21:23 by jjacobi           #+#    #+#             */
-/*   Updated: 2016/12/08 16:25:30 by jjacobi          ###   ########.fr       */
+/*   Updated: 2016/12/14 22:32:28 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,22 @@
 
 # include <stdarg.h>
 
-int	ft_printf(const char *format, ...);
+typedef struct	s_info
+{
+	int			argx;
+	char		flag_metadata;
+	char		flag_zero;
+	char		flag_minus;
+	char		flag_plus;
+	char		flag_space;
+	int			min_size;
+	int			precision;
+	char		lenght_modifs[2];
+	char		conv_char;
+}				t_info;
+
+int				ft_printf(const char *format, ...);
+
+t_info			*stock_info(char *str);
 
 #endif
