@@ -1,39 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stock_infos.c                                      :+:      :+:    :+:   */
+/*   stock_info.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 14:07:29 by jjacobi           #+#    #+#             */
-/*   Updated: 2016/12/14 21:52:42 by jjacobi          ###   ########.fr       */
+/*   Updated: 2016/12/14 22:57:23 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_printf.h"
 
-static t_infos	*create_infos_struct(void)
+static t_info	*create_info_struct(void)
 {
-	t_infos		*infos;
+	t_info		*info;
 
-	if (!(infos = (t_infos*)malloc(sizeof(t_infos))))
+	if (!(info = (t_info*)malloc(sizeof(t_info))))
 		return (NULL);
-	infos->argx = -1;
-	infos->flag_metadata = 0;
-	infos->flag_zero = 0;
-	infos->flag_minus = 0;
-	infos->flag_plus = 0;
-	infos->flag_space = 0;
-	infos->minimum_size = -1;
-	infos->precision = -1;
-	infos->lenght_modifs[0] = '\0';
-	infos->lenght_modifs[1] = '\0';
-	infos->conv_char = '\0';
-	return (infos);
+	info->argx = -1;
+	info->flag_metadata = 0;
+	info->flag_zero = 0;
+	info->flag_minus = 0;
+	info->flag_plus = 0;
+	info->flag_space = 0;
+	info->min_size = -1;
+	info->precision = -1;
+	info->lenght_modifs[0] = '\0';
+	info->lenght_modifs[1] = '\0';
+	info->conv_char = '\0';
+	return (info);
 }
 
-static int	little_atoi(const char *nptr, size_t *size)
+static int		mini_atoi(const char *nptr, size_t *size)
 {
 	int index;
 	int result;
@@ -46,55 +46,62 @@ static int	little_atoi(const char *nptr, size_t *size)
 	return (result);
 }
 
-static int	stock_flag(char c, t_infos *infos)
+static int		stock_flag(char c, t_info *info)
 {
 	int	i;
 
 	i = 0;
 	if (c == '0' && ++i)
-		infos->flag_zero = 1;
+		info->flag_zero = 1;
 	else if (c == '#' && ++i)
-		infos->flag_metadata = 1;
+		info->flag_metadata = 1;
 	else if (c == '-' && ++i)
-		infos->flag_minus = 1;
+		info->flag_minus = 1;
 	else if (c == '+' && ++i)
-		infos->flag_plus = 1;
+		info->flag_plus = 1;
 	else if (c == ' ' && ++i)
-		infos->flag_space = 1;
+		info->flag_space = 1;
 	return (i);
 }
 
-t_infos		*stock_infos(char *str)
+static	int		stock_converter(char *str, t_info *info)
 {
-	t_infos		*infos;
+	size_t	i;
+
+	i = 0;
+	if (ft_strchr("hljz", str[i]))
+	{
+		info->lenght_modifs[0] = str[i++];
+		if (str[i] == 'h' || str[i] == 'l')
+			info->lenght_modifs[1] = str[i++];
+	}
+	return (i);
+}
+
+t_info			*stock_info(char *str)
+{
+	t_info		*info;
 	size_t		i;
 	int			tmp;
 
-	if (!(infos = create_infos_struct()))
+	if (!(info = create_info_struct()))
 		return (NULL);
 	i = 0;
-	while (str[i] && !infos->conv_char)
+	while (str[i] && !info->conv_char)
 	{
-		while (stock_flag(str[i], infos) || str[i] == '$')
+		while (stock_flag(str[i], info) || str[i] == '$')
 			i++;
-		if (ft_isdigit(str[i]))
+		if (ft_isdigit(str[i]) && ((tmp = mini_atoi(&str[i], &i)) >= 0))
 		{
-			tmp = little_atoi(&str[i], &i);
 			if (str[i] == '$' && i++)
-				infos->argx = tmp;
+				info->argx = tmp;
 			else
-				infos->minimum_size = tmp;
+				info->min_size = tmp;
 		}
 		if (str[i] == '.' && ++i)
-			infos->precision = little_atoi(&str[i], &i);
-		if (ft_strchr("hljz", str[i]))
-		{
-			infos->lenght_modifs[0] = str[i++];
-			if (str[i] == 'h' || str[i] == 'l')
-				infos->lenght_modifs[1] = str[i++];
-		}
-		if (ft_strchr("sSpdDioOuUxXcC%", str[i]))
-			infos->conv_char = str[i];
+			info->precision = mini_atoi(&str[i], &i);
+		i += stock_converter(&str[i], info);
+		info->conv_char = ft_strchr("sSpdDioOuUxXcC%", str[i]) ? str[i] : '\0';
 	}
-	return (infos);
+	return (info);
 }
