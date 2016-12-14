@@ -6,7 +6,7 @@
 #    By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/08 14:41:45 by jjacobi           #+#    #+#              #
-#    Updated: 2016/12/08 18:34:24 by jjacobi          ###   ########.fr        #
+#    Updated: 2016/12/14 23:05:01 by jjacobi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME		= libftprintf.a
 CC			= gcc
 FLAGS		= -Wall -Wextra -Werror
 
-SRC_FILES	= ft_printf.c
+SRC_FILES	= ft_printf.c stock_info.c
 OBJ			= $(SRC_FILES:.c=.o)
 
 H_DIR		= ./includes
