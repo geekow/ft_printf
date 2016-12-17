@@ -12,44 +12,33 @@
 
 #include "libft.h"
 
-int	parse(char c)
+int	parse_info(t_info *info, size_t *i)
 {
-	if (str[i] == 's')
-		return ();
-	else if (str[i] == 'S')
-		return ();
-	else if (str[i] == 'p')
-		return ();
-	else if (str[i] == 'd')
-		return ();
-	else if (str[i] == 'D')
-		return ();
-	else if (str[i] == 'i')
-		return ();
-	else if (str[i] == 'o')
-		return ();
-	else if (str[i] == 'O')
-		return ();
-	else if (str[i] == 'u')
-		return ();
-	else if (str[i] == 'U')
-		return ();
-	else
-		return (parse2(c));
-}
-
-int	parse2(char c)
-{
-	if (str[i] == 'x')
-		return ();
-	else if (str[i] == 'X')
-		return ();
-	else if (str[i] == 'c')
-		return ();
-	else if (str[i] == 'C')
-		return ();
-	else if (str[i] == '%')
-		return (write(1, &c, 1));
-	else
-		return (-1);
+	if (info->conv_char == 's')
+		;
+	else if (info->conv_char == 'S')
+		;
+	else if (info->conv_char == 'p')
+		;
+	else if (info->conv_char == 'D')
+		;
+	else if (info->conv_char == 'i' || info->conv_char == 'd')
+		;
+	else if (info->conv_char == 'o')
+		;
+	else if (info->conv_char == 'O')
+		;
+	else if (info->conv_char == 'u')
+		;
+	else if (info->conv_char == 'U')
+		;
+	else if (info->conv_char == 'X' || info->conv_char == 'x')
+		;
+	else if (info->conv_char == 'c')
+		;
+	else if (info->conv_char == 'C')
+		;
+	else if (info->conv_char == '%')
+		;
+	return (0);
 }
