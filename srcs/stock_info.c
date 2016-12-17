@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 14:07:29 by jjacobi           #+#    #+#             */
-/*   Updated: 2016/12/14 22:57:23 by jjacobi          ###   ########.fr       */
+/*   Updated: 2016/12/16 16:26:00 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int		mini_atoi(const char *nptr, size_t *size)
 	return (result);
 }
 
-static int		stock_flag(char c, t_info *info)
+static int		stock_flag(const char c, t_info *info)
 {
 	int	i;
 
@@ -64,7 +64,7 @@ static int		stock_flag(char c, t_info *info)
 	return (i);
 }
 
-static	int		stock_converter(char *str, t_info *info)
+static	int		stock_converter(const char *str, t_info *info)
 {
 	size_t	i;
 
@@ -78,7 +78,7 @@ static	int		stock_converter(char *str, t_info *info)
 	return (i);
 }
 
-t_info			*stock_info(char *str)
+t_info			*stock_info(const char *str, size_t *index)
 {
 	t_info		*info;
 	size_t		i;
@@ -103,5 +103,6 @@ t_info			*stock_info(char *str)
 		i += stock_converter(&str[i], info);
 		info->conv_char = ft_strchr("sSpdDioOuUxXcC%", str[i]) ? str[i] : '\0';
 	}
+	*index += i + 1;
 	return (info);
 }
