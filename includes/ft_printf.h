@@ -31,7 +31,7 @@ typedef struct	s_info
 }				t_info;
 
 int				ft_printf(const char *format, ...);
-
+int				parse_info(t_info *info);
 t_info			*stock_info(const char *str, size_t *index);
 
 #endif

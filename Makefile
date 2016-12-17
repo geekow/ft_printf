@@ -15,7 +15,7 @@ NAME		= libftprintf.a
 CC			= gcc
 FLAGS		= -Wall -Wextra -Werror
 
-SRC_FILES	= ft_printf.c stock_info.c
+SRC_FILES	= ft_printf.c stock_info.c parse_info.c
 OBJ			= $(SRC_FILES:.c=.o)
 
 H_DIR		= ./includes

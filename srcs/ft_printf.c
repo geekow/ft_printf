@@ -33,7 +33,7 @@ int			ft_printf(const char *format, ...)
 				result += write(1, &format[last_write], i - last_write);
 			info = stock_info(format + ++i, &i);
 			last_write = i;
-			//parse_info(info, &i);
+			result += parse_info(info);
 		}
 		i++;
 	}
