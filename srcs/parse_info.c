@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parse_info.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "ft_printf.h"
 
-int	parse_info(t_info *info, size_t *i)
+int	parse_info(t_info *info)
 {
 	if (info->conv_char == 's')
 		;
@@ -39,6 +40,6 @@ int	parse_info(t_info *info, size_t *i)
 	else if (info->conv_char == 'C')
 		;
 	else if (info->conv_char == '%')
-		;
+		return(write(1, &info->conv_char, 1));
 	return (0);
 }
