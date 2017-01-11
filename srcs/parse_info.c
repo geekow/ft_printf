@@ -6,7 +6,7 @@
 /*   By: jjacobi <jjacobi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 21:38:13 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/11 04:27:41 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/11 06:24:03 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,11 @@ void	initialize_parsing_ptr(void)
 	g_ptr[88] = parse_maj_x;
 	g_ptr[99] = parse_c;
 	g_ptr[67] = parse_maj_c;
+	g_ptr[37] = parse_percent;
 }
 
 int		parse_info(t_info *info, va_list args)
 {
-	t_parse	conv_value;
-
 	initialize_parsing_ptr();
-	conv_value = info->conv_char;
-	return ((*g_ptr[conv_value])(info, args));
+	return ((*g_ptr[(int)info->conv_char])(info, args));
 }
