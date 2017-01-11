@@ -3,43 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   parse_info.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jjacobi <jjacobi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 21:38:13 by jjacobi           #+#    #+#             */
-/*   Updated: 2016/12/08 21:47:40 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/11 04:27:41 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "ft_printf.h"
+#include "parse_info.h"
 
-int	parse_info(t_info *info)
+int		(*g_ptr[122]) (t_info *info, va_list args);
+
+void	initialize_parsing_ptr(void)
 {
-	if (info->conv_char == 's')
-		;
-	else if (info->conv_char == 'S')
-		;
-	else if (info->conv_char == 'p')
-		;
-	else if (info->conv_char == 'D')
-		;
-	else if (info->conv_char == 'i' || info->conv_char == 'd')
-		;
-	else if (info->conv_char == 'o')
-		;
-	else if (info->conv_char == 'O')
-		;
-	else if (info->conv_char == 'u')
-		;
-	else if (info->conv_char == 'U')
-		;
-	else if (info->conv_char == 'X' || info->conv_char == 'x')
-		;
-	else if (info->conv_char == 'c')
-		;
-	else if (info->conv_char == 'C')
-		;
-	else if (info->conv_char == '%')
-		return(write(1, &info->conv_char, 1));
-	return (0);
+	g_ptr[115] = parse_s;
+	g_ptr[83] = parse_maj_s;
+	g_ptr[112] = parse_p;
+	g_ptr[100] = parse_d;
+	g_ptr[68] = parse_maj_d;
+	g_ptr[105] = parse_i;
+	g_ptr[111] = parse_o;
+	g_ptr[79] = parse_maj_o;
+	g_ptr[117] = parse_u;
+	g_ptr[85] = parse_maj_u;
+	g_ptr[120] = parse_x;
+	g_ptr[88] = parse_maj_x;
+	g_ptr[99] = parse_c;
+	g_ptr[67] = parse_maj_c;
+}
+
+int		parse_info(t_info *info, va_list args)
+{
+	t_parse	conv_value;
+
+	initialize_parsing_ptr();
+	conv_value = info->conv_char;
+	return ((*g_ptr[conv_value])(info, args));
 }

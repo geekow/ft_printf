@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 16:21:23 by jjacobi           #+#    #+#             */
-/*   Updated: 2016/12/16 15:56:27 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/11 04:26:22 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct	s_info
 }				t_info;
 
 int				ft_printf(const char *format, ...);
-int				parse_info(t_info *info);
+int				parse_info(t_info *info, va_list args);
 t_info			*stock_info(const char *str, size_t *index);
 
 #endif
