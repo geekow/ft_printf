@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 15:04:04 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/12 06:02:57 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/12 07:05:08 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ int			ft_printf(const char *format, ...)
 				verif = addchars(&format[last_write], i - last_write);
 				if (verif == -1)
 					return (-1);
-				else
-					result += verif;
+				result += verif;
 			}
-				//result += write(1, &format[last_write], i - last_write);
 			if (!(info = stock_info(format + ++i, &i)))
 				return (-1);
 			last_write = i;
@@ -55,10 +53,8 @@ int			ft_printf(const char *format, ...)
 		verif = addchars(&format[last_write], i - last_write);
 		if (verif == -1)
 			return (-1);
-		else
-			result += verif;
+		result += verif;
 	}
-	//result += write(1, &format[last_write], i - last_write);
 	va_end(args);
-	return (result);
+	return (write_or_stock_all(NULL, 0, 1));
 }

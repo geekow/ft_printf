@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:41:12 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/12 05:50:02 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/12 07:10:18 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ int		flag_zero(char flag_minus, char flag_zero, int min_size)
 	result = 0;
 	c = '0';
 	if (!flag_minus && flag_zero && ((min_size - 1) > 0))
-		while (min_size > 1 && min_size--)
-			result += write(1, &c, 1);
+		result += addchar('0', min_size - 1);
+		//while (min_size > 1 && min_size--)
+		//	result += write(1, &c, 1);
 	return (result);
 }
 
@@ -35,8 +36,9 @@ int		flag_space(char flag_minus, char flag_zero, int min_size)
 	result = 0;
 	c = ' ';
 	if (!flag_minus && !flag_zero && ((min_size - 1) > 0))
-		while (min_size > 1 && min_size--)
-			result += write(1, &c, 1);
+		result += addchar(' ', min_size - 1);
+	//while (min_size > 1 && min_size--)
+	//		result += write(1, &c, 1);
 	return (result);
 }
 
@@ -58,7 +60,8 @@ int		parse_c(t_info *info, va_list args)
 	else
 	{
 		c = (unsigned char)va_arg(args, int);
-		result += write(1, &c, 1);
+		//result += write(1, &c, 1);
+		result += addchar(c, 1);
 	}
 	c = ' ';
 	if (info->flag_minus && ((info->min_size - 1) > 0))
