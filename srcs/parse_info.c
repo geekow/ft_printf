@@ -6,16 +6,14 @@
 /*   By: jjacobi <jjacobi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 21:38:13 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/11 06:24:03 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/12 04:54:12 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "parse_info.h"
 
-int		(*g_ptr[122]) (t_info *info, va_list args);
-
-void	initialize_parsing_ptr(void)
+void	initialize_parsing_ptr(int (*g_ptr[122]) (t_info *info, va_list args))
 {
 	g_ptr[115] = parse_s;
 	g_ptr[83] = parse_maj_s;
@@ -36,6 +34,9 @@ void	initialize_parsing_ptr(void)
 
 int		parse_info(t_info *info, va_list args)
 {
-	initialize_parsing_ptr();
+	static int	(*g_ptr[122]) (t_info *info, va_list args) = { NULL };
+
+	if (g_ptr[115] == NULL)
+		initialize_parsing_ptr(g_ptr);
 	return ((*g_ptr[(int)info->conv_char])(info, args));
 }

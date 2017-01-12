@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 15:04:04 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/11 04:25:41 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/12 06:02:57 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int			ft_printf(const char *format, ...)
 	int		result;
 	size_t	last_write;
 	size_t	i;
+	int		verif;
 	t_info	*info;
 
 	i = 0;
@@ -30,15 +31,34 @@ int			ft_printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			if (i > last_write)
-				result += write(1, &format[last_write], i - last_write);
-			info = stock_info(format + ++i, &i);
+			{
+				verif = addchars(&format[last_write], i - last_write);
+				if (verif == -1)
+					return (-1);
+				else
+					result += verif;
+			}
+				//result += write(1, &format[last_write], i - last_write);
+			if (!(info = stock_info(format + ++i, &i)))
+				return (-1);
 			last_write = i;
-			result += parse_info(info, args);
+			verif = parse_info(info, args);
+			if (verif == -1)
+				return (-1);
+			else
+				result += verif;
 		}
 		i++;
 	}
 	if (i > last_write)
-		result += write(1, &format[last_write], i - last_write);
+	{
+		verif = addchars(&format[last_write], i - last_write);
+		if (verif == -1)
+			return (-1);
+		else
+			result += verif;
+	}
+	//result += write(1, &format[last_write], i - last_write);
 	va_end(args);
 	return (result);
 }
