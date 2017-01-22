@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:41:12 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/13 06:10:18 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/22 21:11:16 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		parse_c(t_info *info, va_list args)
 	if (info->lenght_modifs[0] == 'l')
 	{
 		wc = (wint_t)va_arg(args, wint_t);
-		if (!addchar((char)wc, 1))
+		if (!addunicode((int)wc))
 			return (-1);
 	}
 	else
