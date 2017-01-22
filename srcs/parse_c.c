@@ -16,9 +16,6 @@
 
 int		flag_zero(char flag_minus, char flag_zero, int min_size)
 {
-	char 	c;
-
-	c = '0';
 	if (!flag_minus && flag_zero && ((min_size - 1) > 0))
 		return (addchar('0', min_size - 1));
 	return (1);
@@ -26,9 +23,6 @@ int		flag_zero(char flag_minus, char flag_zero, int min_size)
 
 int		flag_space(char flag_minus, char flag_zero, int min_size)
 {
-	char 	c;
-
-	c = ' ';
 	if (!flag_minus && !flag_zero && ((min_size - 1) > 0))
 		return (addchar(' ', min_size - 1));
 	return (1);
