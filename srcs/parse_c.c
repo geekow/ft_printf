@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:41:12 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/22 21:11:16 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/22 22:20:44 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 #include "libft.h"
 #include <wchar.h>
 
-int		flag_zero(char flag_minus, char flag_zero, int min_size)
+static int	flag_zero(char flag_minus, char flag_zero, int min_size)
 {
 	if (!flag_minus && flag_zero && ((min_size - 1) > 0))
 		return (addchar('0', min_size - 1));
 	return (1);
 }
 
-int		flag_space(char flag_minus, char flag_zero, int min_size)
+static int	flag_space(char flag_minus, char flag_zero, int min_size)
 {
 	if (!flag_minus && !flag_zero && ((min_size - 1) > 0))
 		return (addchar(' ', min_size - 1));
 	return (1);
 }
 
-int		parse_c(t_info *info, va_list args)
+int			parse_c(t_info *info, va_list args)
 {
 	unsigned char	c;
 	wint_t			wc;
@@ -50,7 +50,7 @@ int		parse_c(t_info *info, va_list args)
 			return (-1);
 	}
 	if (info->flag_minus && (info->min_size > 1))
-		if (!flag_space(0, 1, info->min_size))
+		if (!flag_space(0, 0, info->min_size))
 			return (-1);
 	return (1);
 }
