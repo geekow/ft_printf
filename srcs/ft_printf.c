@@ -6,12 +6,29 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 15:04:04 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/13 04:01:03 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/25 20:51:17 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft.h"
+
+static char	valid_str(const char *str)
+{
+	static int	i = 1;
+
+	if (i == 0)
+		return (0);
+	i = 1;
+	while (str[i] != '\0')
+	{
+		if (ft_strchr("sSpdDioOuUxXcC%", str[i]))
+			return (1);
+		i++;
+	}
+	i = 0;
+	return (0);
+}
 
 int			ft_printf(const char *format, ...)
 {
@@ -25,7 +42,7 @@ int			ft_printf(const char *format, ...)
 	va_start(args, format);
 	while (format[i])
 	{
-		if (format[i] == '%')
+		if (format[i] == '%' && valid_str(format + i))
 		{
 			if (i > last_w && -1 == addchars(&format[last_w], i - last_w))
 				return (-1);
@@ -34,10 +51,11 @@ int			ft_printf(const char *format, ...)
 				return (-1);
 			last_w = i;
 		}
-		i++;
+		i = (format[i]) ? i + 1 : i;
 	}
-	if (i > last_w && -1 == addchars(&format[last_w], i - last_w))
-		return (-1);
+	if (valid_str("%s"))
+		if (-1 == addchars(&format[last_w], i - last_w))
+			return (-1);
 	va_end(args);
 	return (write_or_stock_all(NULL, 0, 1));
 }

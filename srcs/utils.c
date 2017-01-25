@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 06:01:12 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/22 21:09:37 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/25 20:13:34 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int		write_or_stock_all(const char *str, int nb, char print)
 
 int		addchars(const char *str, int nb)
 {
+	if (nb <= 0)
+		return (1);
 	if (write_or_stock_all(str, nb, 0) == -1)
 		return (-1);
 	else
