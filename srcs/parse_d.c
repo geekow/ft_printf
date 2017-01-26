@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:42:23 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/26 02:02:00 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/26 04:40:13 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ int			parse_d(t_info *info, va_list args)
 			addchar('+', 1);
 		if (info->precision >= 0)
 			addchar('0', size - ft_strlen(str));
-		if (info->precision == 0 && d == 0)
+		if (info->precision == 0 && d == 0 && info->min_size != -1)
 			addchar(' ', 1);
+		else if (info->precision == 0 && d == 0)
+			;
 		else
 			addchars(str, ft_strlen(str));
 		if (info->flag_minus && (size + special) < info->min_size)
