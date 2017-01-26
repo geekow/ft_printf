@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 06:01:12 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/26 02:00:49 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/26 05:26:59 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ int		addchar(char c, int nb)
 	int		i;
 
 	i = 0;
+	if (nb <= 0)
+		return (1);
 	if (!(str = ft_strnew(nb)))
 		return (-1);
 	while (i < nb)
