@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:42:23 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/26 19:39:53 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/26 20:22:01 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,27 +56,35 @@ int					parse_d(t_info *info, va_list args)
 			if (!addchar(' ', info->min_size - size - special))
 				return (-1);
 		if (info->flag_space && d >= 0 && !info->flag_plus)
-			addchar(' ', 1);
+			if (-1 == addchar(' ', 1))
+				return (-1);
 		if (info->flag_plus && d >= 0)
-			addchar('+', 1);
+			if (-1 == addchar('+', 1))
+				return (-1);
 		if (info->precision >= 0)
 		{
 			if (d < 0)
 			{
-				addchar('-', 1);
 				str++;
-				addchar('0', size - ft_strlen(str));
+				if (size != info->precision)
+					size--;
+				if (addchar('-', 1) == -1 || addchar('0', size - ft_strlen(str)) == -1)
+					return (-1);
 			}
-			else
-				addchar('0', size - ft_strlen(str));
+			else if (-1 == addchar('0', size - ft_strlen(str)))
+				return (-1);
 		}
 		if (info->precision == 0 && d == 0 && info->min_size != -1)
-			addchar(' ', 1);
+		{
+			if (addchar(' ', 1) == -1)
+				return (-1);
+		}
 		else if (info->precision != 0 || d != 0)
-			addchars(str, ft_strlen(str));
+			if (-1 == addchars(str, ft_strlen(str)))
+				return (-1);
 		if (info->flag_minus && (size + special) < info->min_size)
-			addchar(' ', info->min_size - (size + special));
-		return (0);
+			if (-1 == addchar(' ', info->min_size - (size + special)))
+				return (-1);
 	}
 	else
 	{
@@ -84,25 +92,36 @@ int					parse_d(t_info *info, va_list args)
 			special++;
 		if (info->min_size > (special + (int)ft_strlen(str))
 				&& !info->flag_zero)
-			addchar(' ', info->min_size - special - ft_strlen(str));
+		{
+			if (-1 == addchar(' ', info->min_size - special - ft_strlen(str)))
+				return (-1);
+		}
 		else if (info->min_size > (special + (int)ft_strlen(str))
 				&& info->flag_zero)
 		{
 			if (info->flag_plus && d >= 0)
-				addchar('+', 1);
+			{
+				if (-1 == addchar('+', 1))
+					return (-1);
+			}
 			else if (d < 0)
 			{
 				str++;
 				special++;
-				addchar('-', 1);
+				if (-1 == addchar('-', 1))
+					return (-1);
 			}
-			addchar('0', info->min_size - special - ft_strlen(str));
+			if (-1 == addchar('0', info->min_size - special - ft_strlen(str)))
+				return (-1);
 		}
 		if (info->flag_space && d >= 0 && !info->flag_plus)
-			addchar(' ', 1);
+			if (-1 == addchar(' ', 1))
+				return (-1);
 		if (info->flag_plus && d >= 0 && !info->flag_zero)
-			addchar('+', 1);
-		addchars(str, ft_strlen(str));
+			if (-1 == addchar('+', 1))
+				return (-1);
+		if (-1 == addchars(str, ft_strlen(str)))
+			return (-1);
 	}
 	return (0);
 }
