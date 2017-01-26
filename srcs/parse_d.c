@@ -6,20 +6,42 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:42:23 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/26 05:34:07 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/26 19:15:07 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int			parse_d(t_info *info, va_list args)
+static long long	get_data(char modifs[2], va_list args)
 {
-	int		d;
-	char	*str;
-	int		size;
-	int		special;
+	if (modifs[0] == '\0')
+		return ((long long)va_arg(args, int));
+	else if (modifs[0] == 'h' && modifs[1] == 'h')
+		return ((signed char)(va_arg(args, int)));
+	else if (modifs[0] == 'h' && modifs[1] == '\0')
+		return ((short)va_arg(args, int));
+	else if (modifs[0] == 'l' && modifs[1] == '\0')
+		return ((long)va_arg(args, long));
+	else if (modifs[0] == 'l' && modifs[1] == 'l')
+		return ((long long)va_arg(args, long long));
+	else if (modifs[0] == 'j' && modifs[1] == '\0')
+		return ((intmax_t)va_arg(args, intmax_t));
+	else if (modifs[0] == 'z' && modifs[1] == '\0')
+		return ((size_t)va_arg(args, size_t));
+	else
+		return ((int)va_arg(args, int));
+}
 
-	d = (int)va_arg(args, int);
+#include <stdio.h>
+
+int					parse_d(t_info *info, va_list args)
+{
+	long long	d;
+	char		*str;
+	int			size;
+	int			special;
+
+	d = get_data(info->lenght_modifs, args);
 	str = ft_itoa(d);
 	special = 0;
 	if (info->precision != -1 || info->flag_minus)
