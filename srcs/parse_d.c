@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:42:23 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/26 19:15:07 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/26 19:39:53 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ static long long	get_data(char modifs[2], va_list args)
 	else
 		return ((int)va_arg(args, int));
 }
-
-#include <stdio.h>
 
 int					parse_d(t_info *info, va_list args)
 {
