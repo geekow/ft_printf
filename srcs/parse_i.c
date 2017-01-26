@@ -6,16 +6,14 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:41:22 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/26 02:01:24 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/26 22:24:38 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "parse_info.h"
 
 int	parse_i(t_info *info, va_list args)
 {
-	if (info && args)
-		return (0);
-	else
-		return (-1);
+	return (parse_d(info, args));
 }
