@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:42:23 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/25 19:01:05 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/26 02:02:00 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ int			parse_d(t_info *info, va_list args)
 	{
 		if ((info->flag_plus || info->flag_space) && d >= 0)
 			special++;
-		if (info->min_size > (special + (int)ft_strlen(str)) && !info->flag_zero)
+		if (info->min_size > (special + (int)ft_strlen(str))
+				&& !info->flag_zero)
 			addchar(' ', info->min_size - special - ft_strlen(str));
-		else if (info->min_size > (special + (int)ft_strlen(str)) && info->flag_zero)
+		else if (info->min_size > (special + (int)ft_strlen(str))
+				&& info->flag_zero)
 			addchar('0', info->min_size - special - ft_strlen(str));
 		if (info->flag_space && d >= 0 && !info->flag_plus)
 			addchar(' ', 1);

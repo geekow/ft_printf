@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 15:04:04 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/25 20:51:17 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/26 02:11:21 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,22 @@ static char	valid_str(const char *str)
 	}
 	i = 0;
 	return (0);
+}
+
+static int	add_last_info(const char *format, size_t last_w, size_t i)
+{
+	if (valid_str("%s"))
+	{
+		if (-1 == addchars(&format[last_w], i - last_w))
+			return (-1);
+	}
+	else
+	{
+		if (-1 == addchars(&format[last_w], ft_strchr(&format[last_w], '%')
+					- &format[last_w]))
+			return (-1);
+	}
+	return (1);
 }
 
 int			ft_printf(const char *format, ...)
@@ -53,9 +69,8 @@ int			ft_printf(const char *format, ...)
 		}
 		i = (format[i]) ? i + 1 : i;
 	}
-	if (valid_str("%s"))
-		if (-1 == addchars(&format[last_w], i - last_w))
-			return (-1);
+	if (add_last_info(format, last_w, i) == -1)
+		return (-1);
 	va_end(args);
 	return (write_or_stock_all(NULL, 0, 1));
 }

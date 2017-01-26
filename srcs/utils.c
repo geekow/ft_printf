@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 06:01:12 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/25 20:13:34 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/26 02:00:49 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int		addchars(const char *str, int nb)
 
 int		addunicode(int c)
 {
-	char    r[4];
-	size_t  index;
+	char	r[4];
+	size_t	index;
 
 	index = 0;
 	if ((r[0] = (char)c) && c > 65535)
@@ -98,8 +98,8 @@ int		addunicode(int c)
 
 int		addchar(char c, int nb)
 {
-	char            *str;
-	int             i;
+	char	*str;
+	int		i;
 
 	i = 0;
 	if (!(str = ft_strnew(nb)))
