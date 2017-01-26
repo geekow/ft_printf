@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:42:23 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/26 04:40:13 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/26 05:34:07 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int			parse_d(t_info *info, va_list args)
 			size = ft_strlen(str);
 		if ((info->flag_plus || info->flag_space) && d >= 0)
 			special++;
+		if (d < 0 && info->precision >= 0)
+			special++;
 		if (size < info->min_size && !info->flag_minus)
 			if (!addchar(' ', info->min_size - size - special))
 				return (-1);
@@ -38,12 +40,19 @@ int			parse_d(t_info *info, va_list args)
 		if (info->flag_plus && d >= 0)
 			addchar('+', 1);
 		if (info->precision >= 0)
-			addchar('0', size - ft_strlen(str));
+		{
+			if (d < 0)
+			{
+				addchar('-', 1);
+				str++;
+				addchar('0', size - ft_strlen(str));
+			}
+			else
+				addchar('0', size - ft_strlen(str));
+		}
 		if (info->precision == 0 && d == 0 && info->min_size != -1)
 			addchar(' ', 1);
-		else if (info->precision == 0 && d == 0)
-			;
-		else
+		else if (info->precision != 0 || d != 0)
 			addchars(str, ft_strlen(str));
 		if (info->flag_minus && (size + special) < info->min_size)
 			addchar(' ', info->min_size - (size + special));
@@ -58,10 +67,20 @@ int			parse_d(t_info *info, va_list args)
 			addchar(' ', info->min_size - special - ft_strlen(str));
 		else if (info->min_size > (special + (int)ft_strlen(str))
 				&& info->flag_zero)
+		{
+			if (info->flag_plus && d >= 0)
+				addchar('+', 1);
+			else if (d < 0)
+			{
+				str++;
+				special++;
+				addchar('-', 1);
+			}
 			addchar('0', info->min_size - special - ft_strlen(str));
+		}
 		if (info->flag_space && d >= 0 && !info->flag_plus)
 			addchar(' ', 1);
-		if (info->flag_plus && d >= 0)
+		if (info->flag_plus && d >= 0 && !info->flag_zero)
 			addchar('+', 1);
 		addchars(str, ft_strlen(str));
 	}
