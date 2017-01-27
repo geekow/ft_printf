@@ -6,7 +6,7 @@
 #    By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/08 14:41:45 by jjacobi           #+#    #+#              #
-#    Updated: 2017/01/26 01:48:41 by jjacobi          ###   ########.fr        #
+#    Updated: 2017/01/27 15:28:37 by jjacobi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC_FILES   = ft_printf.c stock_info.c parse_info.c parse_s.c parse_maj_s.c \
 			parse_p.c parse_d.c parse_maj_d.c parse_i.c parse_o.c \
 			parse_maj_o.c parse_u.c parse_maj_u.c parse_x.c \
 			parse_maj_x.c parse_c.c parse_maj_c.c parse_percent.c \
-			utils.c
+			utils.c unsigned_itoa.c
 
 LIBFT_FILES = ft_putchar.c ft_putstr.c ft_strlen.c ft_putchar_fd.c \
 			ft_putstr_fd.c ft_strnew.c ft_strdel.c ft_memdel.c ft_memalloc.c \
