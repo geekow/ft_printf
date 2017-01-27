@@ -6,7 +6,7 @@
 #    By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/08 14:41:45 by jjacobi           #+#    #+#              #
-#    Updated: 2017/01/27 15:28:37 by jjacobi          ###   ########.fr        #
+#    Updated: 2017/01/27 17:55:21 by jjacobi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ LIBFT_FILES = ft_putchar.c ft_putstr.c ft_strlen.c ft_putchar_fd.c \
 			ft_memmove.c ft_memchr.c ft_memcmp.c ft_lstnew.c ft_lstdelone.c \
 			ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_sqrt.c \
 			ft_split_whitespaces.c ft_sort_wordtab.c ft_lstsort.c ft_power.c \
-				get_next_line.c
+			get_next_line.c ft_itoa_base.c
 OBJ			= $(SRC_FILES:.c=.o)
 
 H_DIR		= ./includes
