@@ -6,7 +6,7 @@
 #    By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/08 14:41:45 by jjacobi           #+#    #+#              #
-#    Updated: 2017/01/27 17:55:21 by jjacobi          ###   ########.fr        #
+#    Updated: 2017/01/27 18:21:06 by jjacobi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ libft.a:
 		@(cd $(LIBFT_PATH) && $(MAKE))
 
 %.o: $(SRC_FOLDER)/%.c
-		@$(ECHO) "\r$(GREEN) Compiling $@ \c\033[K"
+		@$(ECHO) "\r$(GREEN) Compiling $@                      \c\033[K"
 		@$(CC) $(FLAGS) -c -o $@ $< -I $(H_DIR)
 
 clean:
