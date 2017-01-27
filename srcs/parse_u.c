@@ -6,13 +6,13 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:42:18 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/27 16:31:25 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/27 18:12:29 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static unsigned long long	get_data(char modifs[2], va_list args)
+static long long	get_data(char modifs[2], va_list args)
 {
 	if (modifs[0] == '\0')
 		return ((long long)va_arg(args, unsigned int));
