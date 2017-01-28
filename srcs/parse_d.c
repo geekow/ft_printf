@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:42:23 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/26 22:16:29 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/28 01:17:13 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static long long	get_data(char modifs[2], va_list args)
 static int			treatment_without_zero_begining(t_info *info, int *special,
 														char **str, long long d)
 {
-	if ((info->flag_plus || info->flag_space) && d >= 0)
+	if (!(*special = 0) && (info->flag_plus || info->flag_space) && d >= 0)
 		*special = *special + 1;
 	if (info->min_size > (*special + (int)ft_strlen(*str))
 		&& !info->flag_zero)
