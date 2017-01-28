@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 06:01:12 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/26 05:26:59 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/28 01:52:59 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@ int		write_or_stock_all(const char *str, int nb, char print)
 	static t_list	*list = NULL;
 
 	if (print == 1)
-		return (print_all(&begin));
+	{
+		list = begin;
+		begin = NULL;
+		return (print_all(&list));
+	}
 	if (!begin)
 	{
 		if (!(begin = ft_lstnew((void*)str, nb)))
