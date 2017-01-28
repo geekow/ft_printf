@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:41:52 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/27 18:54:50 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/28 01:46:04 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,21 @@ static int			treatment_without_zero_begining(t_info *info, int *special,
 			&& info->flag_zero)
 	{
 		if (info->flag_metadata && *str[0] != '0')
-			addchars("0X", 2);
-		if (-1 == addchar('0', info->min_size - *special - ft_strlen(*str)))
+			if (-1 == addchars("0X", 2))
+				return (-1);
+		if (-1 == addchar('0', info->min_size - *special - ft_strlen(*str) -
+					(info->flag_metadata * 2)))
 			return (-1);
 	}
+	else if (info->flag_metadata && *str[0] != '0')
+			if (-1 == addchars("0X", 2))
+				return (-1);
 	return (1);
 }
 
 static int			trt_one(t_info *info, char *str,
 											int *size)
 {
-	size[1] = 0;
 	if ((int)ft_strlen(str) < info->precision)
 		size[0] = info->precision;
 	else
@@ -103,6 +107,7 @@ int					parse_maj_x(t_info *info, va_list args)
 
 	d = get_data(info->lenght_modifs, args);
 	str = ft_itoa_base(d, "0123456789ABCDEF");
+	size[1] = 0;
 	if (info->precision != -1 || info->flag_minus)
 	{
 
