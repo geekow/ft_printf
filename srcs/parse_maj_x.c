@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:41:52 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/28 01:46:04 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/28 01:50:39 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ static int			treatment_without_zero_begining(t_info *info, int *special,
 			return (-1);
 	}
 	else if (info->flag_metadata && *str[0] != '0')
-			if (-1 == addchars("0X", 2))
-				return (-1);
+		if (-1 == addchars("0X", 2))
+			return (-1);
 	return (1);
 }
 
@@ -78,7 +78,7 @@ static int			trt_two(t_info *info, unsigned long long d,
 													char **str, int *size)
 {
 	if (info->flag_metadata && d != 0)
-			addchars("0X", 2);
+		addchars("0X", 2);
 	if (info->precision >= 0)
 	{
 		if (-1 == addchar('0', size[0] - ft_strlen(*str)))
@@ -110,7 +110,6 @@ int					parse_maj_x(t_info *info, va_list args)
 	size[1] = 0;
 	if (info->precision != -1 || info->flag_minus)
 	{
-
 		if (!trt_one(info, str, size) || !trt_two(info, d, &str, size))
 			return (-1);
 	}
