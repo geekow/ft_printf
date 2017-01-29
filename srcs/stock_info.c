@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 14:07:29 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/11 00:16:51 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/29 21:48:49 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static	int		stock_converter(const char *str, t_info *info)
 	size_t	i;
 
 	i = 0;
-	if (ft_strchr("hljz", str[i]))
+	if (str[i] && ft_strchr("hljz", str[i]))
 	{
 		info->lenght_modifs[0] = str[i++];
 		if (str[i] == 'h' || str[i] == 'l')
@@ -84,14 +84,14 @@ t_info			*stock_info(const char *str, size_t *index)
 	size_t		i;
 	int			tmp;
 
-	if (!(info = create_info_struct()))
+	if (!(info = create_info_struct()) || !str[0])
 		return (NULL);
 	i = 0;
 	while (str[i] && !info->conv_char)
 	{
 		while (stock_flag(str[i], info) || str[i] == '$')
 			i++;
-		if (ft_isdigit(str[i]) && ((tmp = mini_atoi(&str[i], &i)) >= 0))
+		if (str[i] && ft_isdigit(str[i]) && ((tmp = mini_atoi(&str[i], &i)) >= 0))
 		{
 			if (str[i] == '$' && i++)
 				info->argx = tmp;
@@ -101,6 +101,11 @@ t_info			*stock_info(const char *str, size_t *index)
 		if (str[i] == '.' && ++i)
 			info->precision = mini_atoi(&str[i], &i);
 		i += stock_converter(&str[i], info);
+		if (!str[i] || ft_strchr("ABEFGHIJKLMNPQRTVWYZabefgkmnqrtvwy", str[i]))
+		{
+			*index += i;
+			return (info);
+		}
 		info->conv_char = ft_strchr("sSpdDioOuUxXcC%", str[i]) ? str[i] : '\0';
 	}
 	*index += i + 1;

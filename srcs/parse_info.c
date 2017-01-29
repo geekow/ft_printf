@@ -6,7 +6,7 @@
 /*   By: jjacobi <jjacobi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 21:38:13 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/12 04:54:12 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/29 20:17:20 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ int		parse_info(t_info *info, va_list args)
 
 	if (g_ptr[115] == NULL)
 		initialize_parsing_ptr(g_ptr);
+	if (info->conv_char == '\0')
+		return (1);
 	return ((*g_ptr[(int)info->conv_char])(info, args));
 }
