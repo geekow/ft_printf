@@ -6,12 +6,14 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 16:21:23 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/27 15:25:45 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/30 19:07:32 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+
+# define NOTVALIDCHAR "ABEFGHIJKLMNPQRTVWYZabefgkmnqrtvwy"
 
 # include <stdarg.h>
 # include "libft.h"
