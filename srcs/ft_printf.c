@@ -6,17 +6,22 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 15:04:04 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/30 19:37:46 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/30 23:56:34 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft.h"
 
-static char	valid_str(const char *str)
+static char	valid_str(const char *str, int reset)
 {
 	static int	i = 1;
 
+	if (reset)
+	{
+		i = 1;
+		return (1);
+	}
 	if (i == 0)
 		return (0);
 	i = 1;
@@ -32,7 +37,7 @@ static char	valid_str(const char *str)
 
 static int	add_last_info(const char *format, size_t last_w, size_t i)
 {
-	if (valid_str("%s"))
+	if (valid_str("%s", 0))
 	{
 		if (-1 == addchars(&format[last_w], i - last_w))
 			return (-1);
@@ -58,7 +63,7 @@ int			ft_printf(const char *format, ...)
 	va_start(args, format);
 	while (format[i])
 	{
-		if (format[i] == '%' && !valid_str(format + i))
+		if (format[i] == '%' && !valid_str(format + i, 0))
 		{
 			if (i > last_w && -1 == addchars(&format[last_w], i - last_w))
 				return (-1);
@@ -69,7 +74,7 @@ int			ft_printf(const char *format, ...)
 				return (-1);
 			last_w = i;
 		}
-		while (format[i] == '%' && valid_str(format + i))
+		while (format[i] == '%' && valid_str(format + i, 0))
 		{
 			if (i > last_w && -1 == addchars(&format[last_w], i - last_w))
 				return (-1);
@@ -80,7 +85,7 @@ int			ft_printf(const char *format, ...)
 		}
 		i = (format[i]) ? i + 1 : i;
 	}
-	if (add_last_info(format, last_w, i) == -1)
+	if (add_last_info(format, last_w, i) == -1 || !valid_str("", 1))
 		return (-1);
 	va_end(args);
 	return (write_or_stock_all(NULL, 0, 1));
