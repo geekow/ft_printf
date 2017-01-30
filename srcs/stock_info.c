@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 14:07:29 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/30 19:07:20 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/30 22:56:17 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_info			*stock_info(const char *str, size_t *index)
 				info->min_size = tmp;
 		}
 		i += stock_converter(&str[i], info);
-		if ((!str[i] || ft_strchr(NOTVALIDCHAR, str[i])) && (*index += i))
+		if ((!str[i] || !ft_strchr(VALIDCHAR, str[i])) && (*index += i))
 			return (info);
 		info->conv_char = ft_strchr("sSpdDioOuUxXcC%", str[i]) ? str[i] : '\0';
 	}
