@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:41:52 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/28 01:50:39 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/30 18:10:52 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 static long long	get_data(char modifs[2], va_list args)
 {
 	if (modifs[0] == '\0')
-		return ((long long)va_arg(args, unsigned int));
+		return ((unsigned int)va_arg(args, unsigned int));
 	else if (modifs[0] == 'h' && modifs[1] == 'h')
-		return ((signed char)(va_arg(args, unsigned int)));
+		return ((unsigned char)(va_arg(args, unsigned int)));
 	else if (modifs[0] == 'h' && modifs[1] == '\0')
-		return ((short)va_arg(args, unsigned int));
+		return ((unsigned short)va_arg(args, unsigned int));
 	else if (modifs[0] == 'l' && modifs[1] == '\0')
-		return ((long)va_arg(args, unsigned long));
+		return ((unsigned long)va_arg(args, unsigned long));
 	else if (modifs[0] == 'l' && modifs[1] == 'l')
-		return ((long long)va_arg(args, unsigned long long));
+		return ((unsigned long long)va_arg(args, unsigned long long));
 	else if (modifs[0] == 'j' && modifs[1] == '\0')
 		return ((uintmax_t)va_arg(args, uintmax_t));
 	else if (modifs[0] == 'z' && modifs[1] == '\0')
 		return ((size_t)va_arg(args, size_t));
 	else
-		return ((int)va_arg(args, unsigned int));
+		return ((unsigned int)va_arg(args, unsigned int));
 }
 
 static int			treatment_without_zero_begining(t_info *info, int *special,
