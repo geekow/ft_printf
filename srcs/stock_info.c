@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 14:07:29 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/29 21:48:49 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/30 19:07:20 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_info	*create_info_struct(void)
 	return (info);
 }
 
-static int		mini_atoi(const char *nptr, size_t *size)
+static int		m_atoi(const char *nptr, size_t *size)
 {
 	int index;
 	int result;
@@ -48,7 +48,7 @@ static int		mini_atoi(const char *nptr, size_t *size)
 
 static int		stock_flag(const char c, t_info *info)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (c == '0' && ++i)
@@ -69,6 +69,8 @@ static	int		stock_converter(const char *str, t_info *info)
 	size_t	i;
 
 	i = 0;
+	if (str[i] == '.' && ++i)
+		info->precision = m_atoi(&str[i], &i);
 	if (str[i] && ft_strchr("hljz", str[i]))
 	{
 		info->lenght_modifs[0] = str[i++];
@@ -81,8 +83,8 @@ static	int		stock_converter(const char *str, t_info *info)
 t_info			*stock_info(const char *str, size_t *index)
 {
 	t_info		*info;
-	size_t		i;
 	int			tmp;
+	size_t		i;
 
 	if (!(info = create_info_struct()) || !str[0])
 		return (NULL);
@@ -91,21 +93,16 @@ t_info			*stock_info(const char *str, size_t *index)
 	{
 		while (stock_flag(str[i], info) || str[i] == '$')
 			i++;
-		if (str[i] && ft_isdigit(str[i]) && ((tmp = mini_atoi(&str[i], &i)) >= 0))
+		if (str[i] && ft_isdigit(str[i]) && ((tmp = m_atoi(&str[i], &i)) >= 0))
 		{
 			if (str[i] == '$' && i++)
 				info->argx = tmp;
 			else
 				info->min_size = tmp;
 		}
-		if (str[i] == '.' && ++i)
-			info->precision = mini_atoi(&str[i], &i);
 		i += stock_converter(&str[i], info);
-		if (!str[i] || ft_strchr("ABEFGHIJKLMNPQRTVWYZabefgkmnqrtvwy", str[i]))
-		{
-			*index += i;
+		if ((!str[i] || ft_strchr(NOTVALIDCHAR, str[i])) && (*index += i))
 			return (info);
-		}
 		info->conv_char = ft_strchr("sSpdDioOuUxXcC%", str[i]) ? str[i] : '\0';
 	}
 	*index += i + 1;
