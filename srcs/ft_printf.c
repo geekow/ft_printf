@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 15:04:04 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/29 21:33:51 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/30 19:37:46 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,14 @@ int			ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%' && !valid_str(format + i))
 		{
+			if (i > last_w && -1 == addchars(&format[last_w], i - last_w))
+				return (-1);
 			info = stock_info(format + ++i, &i);
-			addchars(&format[i], ft_strlen(&format[i]));
+			if (format[i] && -1 == parse_noconv(info, format[i++]))
+				return (-1);
+			if (-1 == addchars(&format[i], ft_strlen(&format[i])))
+				return (-1);
+			last_w = i;
 		}
 		while (format[i] == '%' && valid_str(format + i))
 		{
