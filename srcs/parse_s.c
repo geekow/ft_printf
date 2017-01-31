@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:43:06 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/30 17:54:03 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/31 01:40:39 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,28 @@ static int	flag_space(char flag_minus, char flag_zero, int min_size, int i)
 	return (1);
 }
 
+static int	calc_unicode_size(wint_t *wc)
+{
+	int	i;
+	int	result;
+
+	i = 0;
+	result = 0;
+	while (wc[i])
+	{
+		if (wc[i] > 65535)
+			result += 4;
+		else if (wc[i] > 2047)
+			result += 3;
+		else if (wc[i] > 127)
+			result += 2;
+		else
+			result += 1;
+		i++;
+	}
+	return (result);
+}
+
 static int	get_and_save(t_info *info, wchar_t **fws, char **fs, va_list args)
 {
 	int			i;
@@ -44,8 +66,8 @@ static int	get_and_save(t_info *info, wchar_t **fws, char **fs, va_list args)
 		wstr = (wchar_t*)va_arg(args, wchar_t*);
 		if (!wstr)
 			i = 6;
-		while (wstr && wstr[i])
-			i = i + 1;
+		else
+			i = calc_unicode_size(wstr);
 		*fws = wstr;
 	}
 	else
