@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 14:07:29 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/30 22:56:17 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/31 01:00:19 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,12 @@ static	int		stock_converter(const char *str, t_info *info)
 	{
 		info->lenght_modifs[0] = str[i++];
 		if (str[i] == 'h' || str[i] == 'l')
-			info->lenght_modifs[1] = str[i++];
+		{
+			if (ft_strchr("hl", info->lenght_modifs[0]))
+				info->lenght_modifs[1] = str[i++];
+			else
+				i++;
+		}
 	}
 	return (i);
 }
