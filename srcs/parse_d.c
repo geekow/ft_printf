@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:42:23 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/31 04:31:39 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/31 05:15:48 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,17 @@ static int			trt_one(t_info *info, char *str,
 		size[0] = ft_strlen(str);
 	if ((info->flag_plus || info->flag_space) && d >= 0)
 		size[1] = size[1] + 1;
-	if (d < 0 && info->precision >= 0)
+	if (d < 0 && info->precision >= 0 && info->precision == size[0])
 		size[1] = size[1] + 1;
 	if (size[0] < info->min_size && !info->flag_minus)
 		if (!addchar(' ', info->min_size - size[0] - size[1]))
-			return (-1);
+			return (0);
 	if (info->flag_space && d >= 0 && !info->flag_plus)
 		if (-1 == addchar(' ', 1))
-			return (-1);
+			return (0);
 	if (info->flag_plus && d >= 0)
 		if (-1 == addchar('+', 1))
-			return (-1);
+			return (0);
 	return (1);
 }
 
@@ -97,22 +97,22 @@ static int			trt_two(t_info *info, int d,
 				size[0] = size[0] - 1;
 			if (addchar('-', 1) == -1 ||
 					addchar('0', size[0] - ft_strlen(*str)) == -1)
-				return (-1);
+				return (0);
 		}
 		else if (-1 == addchar('0', size[0] - ft_strlen(*str)))
-			return (-1);
+			return (0);
 	}
 	if (info->precision == 0 && d == 0 && info->min_size != -1)
 	{
 		if (addchar(' ', 1) == -1)
-			return (-1);
+			return (0);
 	}
 	else if (info->precision != 0 || d != 0)
 		if (-1 == addchars(*str, ft_strlen(*str)))
-			return (-1);
+			return (0);
 	if (info->flag_minus && (size[0] + size[1]) < info->min_size)
 		if (-1 == addchar(' ', info->min_size - (size[0] + size[1])))
-			return (-1);
+			return (0);
 	return (1);
 }
 
