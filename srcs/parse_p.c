@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:43:45 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/29 17:57:45 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/31 07:57:19 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ static int			trt_two(t_info *info, unsigned long long d,
 	if (info->precision >= 0)
 	{
 		if (-1 == addchar('0', size[0] - ft_strlen(*str)))
+			return (-1);
+		if (!(d == 0 && info->precision == 0) &&
+				-1 == addchars(*str, ft_strlen(*str)))
 			return (-1);
 	}
 	else if (info->precision != 0 || d != 0)
