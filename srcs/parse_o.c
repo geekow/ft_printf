@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:42:57 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/31 19:20:25 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/31 20:14:44 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,13 @@ static int			treatment_without_zero_begining(t_info *info, int *special,
 		if (-1 == addchar('0', info->min_size - *special - ft_strlen(*str)))
 			return (-1);
 	}
-	if (info->flag_metadata && -1 == addchar('0', 1))
-		return (-1);
+	if (info->flag_metadata)
+	{
+		if (*str[0] == '0' && info->min_size == -1)
+			;
+		else if (-1 == addchar('0', 1))
+			return (-1);
+	}
 	return (1);
 }
 
@@ -104,7 +109,7 @@ int					parse_o(t_info *info, va_list args)
 			info->precision = ft_strlen(str) + 1;
 		else
 			size[1] = 1;
-		if (d == 0)
+		if (d == 0 && info->precision > 0)
 			info->precision = info->precision - 1;
 	}
 	if (info->precision != -1 || info->flag_minus)
