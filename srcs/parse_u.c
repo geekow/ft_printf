@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:42:18 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/30 18:01:21 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/31 22:01:12 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,18 @@ static long long	get_data(char modifs[2], va_list args)
 		return ((unsigned int)va_arg(args, unsigned int));
 }
 
-static int			treatment_without_zero_begining(t_info *info, int *special,
-											char **str)
+static int			treatment_without_zero_begining(t_info *info, char **str)
 {
-	if (info->min_size > (*special + (int)ft_strlen(*str))
+	if (info->min_size > ((int)ft_strlen(*str))
 		&& !info->flag_zero)
 	{
-		if (-1 == addchar(' ', info->min_size - *special - ft_strlen(*str)))
+		if (-1 == addchar(' ', info->min_size - ft_strlen(*str)))
 			return (-1);
 	}
-	else if (info->min_size > (*special + (int)ft_strlen(*str))
+	else if (info->min_size > ((int)ft_strlen(*str))
 			&& info->flag_zero)
 	{
-		if (-1 == addchar('0', info->min_size - *special - ft_strlen(*str)))
+		if (-1 == addchar('0', info->min_size - ft_strlen(*str)))
 			return (-1);
 	}
 	return (1);
@@ -101,7 +100,7 @@ int					parse_u(t_info *info, va_list args)
 	}
 	else
 	{
-		if (-1 == treatment_without_zero_begining(info, &size[1], &str))
+		if (-1 == treatment_without_zero_begining(info, &str))
 			return (-1);
 		if (-1 == addchars(str, ft_strlen(str)))
 			return (-1);
