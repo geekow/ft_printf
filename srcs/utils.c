@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 06:01:12 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/28 01:52:59 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/31 23:24:28 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		print_all(t_list **listadd)
 		result += list->content_size;
 		tmp = list;
 		list = list->next;
+		free(tmp->content);
 		free(tmp);
 	}
 	*listadd = NULL;
@@ -112,5 +113,7 @@ int		addchar(char c, int nb)
 		return (-1);
 	while (i < nb)
 		str[i++] = c;
-	return (addchars(str, nb));
+	i = addchars(str, nb);
+	free(str);
+	return (i);
 }

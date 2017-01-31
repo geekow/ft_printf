@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:42:57 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/31 20:14:44 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/02/01 00:18:57 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,7 @@ int					parse_o(t_info *info, va_list args)
 			info->precision = ft_strlen(str) + 1;
 		else
 			size[1] = 1;
-		if (d == 0 && info->precision > 0)
-			info->precision = info->precision - 1;
+		info->precision -= (d == 0 && info->precision > 0) ? 1 : 0;
 	}
 	if (info->precision != -1 || info->flag_minus)
 	{
@@ -120,5 +119,6 @@ int					parse_o(t_info *info, va_list args)
 	else if (-1 == treatment_without_zero_begining(info, &size[1], &str)
 			|| -1 == addchars(str, ft_strlen(str)))
 		return (-1);
+	free(str);
 	return (0);
 }

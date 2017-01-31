@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 15:04:04 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/31 08:27:13 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/31 23:35:22 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ static int	check_not_valid(const char *format, size_t *i,
 	return (1);
 }
 
+static int	save_last_pos_and_free(size_t i, t_info *info)
+{
+	free(info);
+	return (i);
+}
+
 int			ft_printf(const char *format, ...)
 {
 	va_list	args;
@@ -88,7 +94,7 @@ int			ft_printf(const char *format, ...)
 				return (-1);
 			if (!(info = stock(format + ++i, &i)) || -1 == parse(info, args))
 				return (-1);
-			last_w = i;
+			last_w = save_last_pos_and_free(i, info);
 		}
 		i = (format[i]) ? i + 1 : i;
 	}
