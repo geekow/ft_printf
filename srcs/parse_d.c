@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:42:23 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/28 01:17:13 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/31 02:33:21 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,11 +131,11 @@ int					parse_d(t_info *info, va_list args)
 	}
 	else
 	{
-		if (-1 == treatment_without_zero_begining(info, &size[1], &str, d))
-			return (-1);
 		if (info->flag_space && d >= 0 && !info->flag_plus)
 			if (-1 == addchar(' ', 1))
 				return (-1);
+		if (-1 == treatment_without_zero_begining(info, &size[1], &str, d))
+			return (-1);
 		if (info->flag_plus && d >= 0 && !info->flag_zero)
 			if (-1 == addchar('+', 1))
 				return (-1);
