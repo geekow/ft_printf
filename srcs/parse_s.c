@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:43:06 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/31 01:40:39 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/31 02:08:38 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	flag_space(char flag_minus, char flag_zero, int min_size, int i)
 	return (1);
 }
 
-static int	calc_unicode_size(wint_t *wc)
+static int	calc_unicode_size(wchar_t *wc)
 {
 	int	i;
 	int	result;
@@ -88,17 +88,17 @@ int			parse_s(t_info *info, va_list args)
 	char		*str;
 	wchar_t		*wstr;
 	int			i;
+	int			j;
 
 	i = get_and_save(info, &wstr, &str, args);
 	if (!flag_zero_spc(info->flag_minus, info->flag_zero, info->min_size, i))
 		return (-1);
 	if (info->lenght_modifs[0] == 'l' && info->lenght_modifs[1] == '\0')
 	{
-		i = 0;
-		if (!wstr && !addchars("(null)", info->precision))
+		if (!(j = 0) && !wstr && !addchars("(null)", info->precision))
 			return (-1);
-		while (wstr && wstr[i] && i < info->precision)
-			if (!addunicode((int)wstr[i++]))
+		while (wstr && wstr[j] && j < info->precision)
+			if (!addunicode((int)wstr[j++]))
 				return (-1);
 	}
 	else
