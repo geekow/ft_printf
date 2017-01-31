@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 14:07:29 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/31 01:00:19 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/31 08:29:31 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static	int		stock_converter(const char *str, t_info *info)
 	return (i);
 }
 
-t_info			*stock_info(const char *str, size_t *index)
+t_info			*stock(const char *str, size_t *index)
 {
 	t_info		*info;
 	int			tmp;

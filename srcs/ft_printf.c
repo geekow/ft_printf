@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 15:04:04 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/30 23:56:34 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/31 08:27:13 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,23 @@ static int	add_last_info(const char *format, size_t last_w, size_t i)
 	return (1);
 }
 
+static int	check_not_valid(const char *format, size_t *i,
+		size_t *last_w, t_info *info)
+{
+	if (format[*i] == '%' && !valid_str(format + *i, 0))
+	{
+		if (*i > *last_w && -1 == addchars(&format[*last_w], *i - *last_w))
+			return (-1);
+		info = stock(format + ++(*i), i);
+		if (format[*i] && -1 == parse_noconv(info, format[(*i)++]))
+			return (-1);
+		if (-1 == addchars(&format[*i], ft_strlen(&format[*i])))
+			return (-1);
+		*last_w = *i;
+	}
+	return (1);
+}
+
 int			ft_printf(const char *format, ...)
 {
 	va_list	args;
@@ -63,30 +80,19 @@ int			ft_printf(const char *format, ...)
 	va_start(args, format);
 	while (format[i])
 	{
-		if (format[i] == '%' && !valid_str(format + i, 0))
-		{
-			if (i > last_w && -1 == addchars(&format[last_w], i - last_w))
-				return (-1);
-			info = stock_info(format + ++i, &i);
-			if (format[i] && -1 == parse_noconv(info, format[i++]))
-				return (-1);
-			if (-1 == addchars(&format[i], ft_strlen(&format[i])))
-				return (-1);
-			last_w = i;
-		}
+		if (check_not_valid(format, &i, &last_w, info) == -1)
+			return (-1);
 		while (format[i] == '%' && valid_str(format + i, 0))
 		{
 			if (i > last_w && -1 == addchars(&format[last_w], i - last_w))
 				return (-1);
-			if (!(info = stock_info(format + ++i, &i)) ||
-					-1 == parse_info(info, args))
+			if (!(info = stock(format + ++i, &i)) || -1 == parse(info, args))
 				return (-1);
 			last_w = i;
 		}
 		i = (format[i]) ? i + 1 : i;
 	}
-	if (add_last_info(format, last_w, i) == -1 || !valid_str("", 1))
-		return (-1);
 	va_end(args);
-	return (write_or_stock_all(NULL, 0, 1));
+	return (add_last_info(format, last_w, i) == -1
+			|| !valid_str("", 1) ? -1 : write_or_stock_all(NULL, 0, 1));
 }
