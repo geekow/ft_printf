@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:43:06 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/31 02:08:38 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/31 07:25:45 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,20 @@ static int	flag_space(char flag_minus, char flag_zero, int min_size, int i)
 	return (1);
 }
 
-static int	calc_unicode_size(wchar_t *wc)
+static int	calc_unicode_size(wchar_t *wc, int size)
 {
-	int	i;
-	int	result;
+	int i;
+	int result;
+	int tmp;
 
 	i = 0;
 	result = 0;
-	while (wc[i])
+	tmp = 0;
+	if (size == -1)
+		size = 2147483647;
+	while (wc[i] && size >= result)
 	{
+		tmp = result;
 		if (wc[i] > 65535)
 			result += 4;
 		else if (wc[i] > 2047)
@@ -51,6 +56,8 @@ static int	calc_unicode_size(wchar_t *wc)
 			result += 1;
 		i++;
 	}
+	if (result > size)
+		return (tmp);
 	return (result);
 }
 
@@ -67,7 +74,7 @@ static int	get_and_save(t_info *info, wchar_t **fws, char **fs, va_list args)
 		if (!wstr)
 			i = 6;
 		else
-			i = calc_unicode_size(wstr);
+			i = calc_unicode_size(wstr, info->precision);
 		*fws = wstr;
 	}
 	else
@@ -87,27 +94,26 @@ int			parse_s(t_info *info, va_list args)
 {
 	char		*str;
 	wchar_t		*wstr;
-	int			i;
-	int			j;
+	int			i[4];
 
-	i = get_and_save(info, &wstr, &str, args);
-	if (!flag_zero_spc(info->flag_minus, info->flag_zero, info->min_size, i))
+	i[0] = get_and_save(info, &wstr, &str, args);
+	i[2] = i[0];
+	if (!flag_zero_spc(info->flag_minus, info->flag_zero, info->min_size, i[0]))
 		return (-1);
 	if (info->lenght_modifs[0] == 'l' && info->lenght_modifs[1] == '\0')
 	{
-		if (!(j = 0) && !wstr && !addchars("(null)", info->precision))
+		if (!(i[1] = 0) && !wstr && !addchars("(null)", info->precision))
 			return (-1);
-		while (wstr && wstr[j] && j < info->precision)
-			if (!addunicode((int)wstr[j++]))
+		while (i[0] && wstr && wstr[i[1]] && i[1] < info->precision)
+			if ((i[3] = addunicode((int)wstr[i[1]++])) && i[3] == -1)
 				return (-1);
+			else
+				i[0] -= i[3];
 	}
-	else
-	{
-		if (!str || !addchars(str, info->precision))
-			return (-1);
-	}
-	if (info->flag_minus && (info->min_size > i))
-		if (!flag_space(0, 0, info->min_size, i))
+	else if (!str || !addchars(str, info->precision))
+		return (-1);
+	if (info->flag_minus && (info->min_size > i[2]))
+		if (!flag_space(0, 0, info->min_size, i[2]))
 			return (-1);
 	return (1);
 }
