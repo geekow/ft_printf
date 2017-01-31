@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:42:23 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/31 02:33:21 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/31 04:01:14 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int			treatment_without_zero_begining(t_info *info, int *special,
 		if (-1 == addchar(' ', info->min_size - *special - ft_strlen(*str)))
 			return (-1);
 	}
-	else if (info->min_size > (*special + (int)ft_strlen(*str))
+	else if (info->min_size >= (*special + (int)ft_strlen(*str))
 			&& info->flag_zero)
 	{
 		if (info->flag_plus && d >= 0)
