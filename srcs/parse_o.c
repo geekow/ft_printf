@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:42:57 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/30 18:05:41 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/01/31 19:20:25 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,21 @@ static int			treatment_without_zero_begining(t_info *info, int *special,
 		if (-1 == addchar('0', info->min_size - *special - ft_strlen(*str)))
 			return (-1);
 	}
+	if (info->flag_metadata && -1 == addchar('0', 1))
+		return (-1);
 	return (1);
 }
 
 static int			trt_one(t_info *info, char *str,
 											int *size)
 {
-	size[1] = 0;
 	if ((int)ft_strlen(str) < info->precision)
 		size[0] = info->precision;
 	else
 		size[0] = ft_strlen(str);
-	if (size[0] < info->min_size && !info->flag_minus)
-		if (!addchar(' ', info->min_size - size[0] - size[1]))
-			return (-1);
+	if (size[0] < info->min_size && !info->flag_minus &&
+			!addchar(' ', info->min_size - size[0] - size[1]))
+		return (-1);
 	return (1);
 }
 
@@ -77,11 +78,13 @@ static int			trt_two(t_info *info, unsigned long long d,
 		if (addchar(' ', 1) == -1)
 			return (-1);
 	}
+	if (info->flag_minus && info->flag_metadata && -1 == addchar('0', 1))
+		return (-1);
 	else if (info->precision != 0 || d != 0)
 		if (-1 == addchars(*str, ft_strlen(*str)))
 			return (-1);
 	if (info->flag_minus && (size[0] + size[1]) < info->min_size)
-		if (-1 == addchar(' ', info->min_size - (size[0] + size[1])))
+		if (-1 == addchar(' ', info->min_size - size[0] - size[1]))
 			return (-1);
 	return (1);
 }
@@ -94,9 +97,13 @@ int					parse_o(t_info *info, va_list args)
 
 	d = get_data(info->lenght_modifs, args);
 	str = ft_itoa_base(d, "01234567");
+	size[1] = 0;
 	if (info->flag_metadata && info->precision <= (int)ft_strlen(str))
 	{
-		info->precision = ft_strlen(str) + 1;
+		if (info->precision != -1)
+			info->precision = ft_strlen(str) + 1;
+		else
+			size[1] = 1;
 		if (d == 0)
 			info->precision = info->precision - 1;
 	}
@@ -105,12 +112,8 @@ int					parse_o(t_info *info, va_list args)
 		if (!trt_one(info, str, size) || !trt_two(info, d, &str, size))
 			return (-1);
 	}
-	else
-	{
-		if (-1 == treatment_without_zero_begining(info, &size[1], &str))
-			return (-1);
-		if (-1 == addchars(str, ft_strlen(str)))
-			return (-1);
-	}
+	else if (-1 == treatment_without_zero_begining(info, &size[1], &str)
+			|| -1 == addchars(str, ft_strlen(str)))
+		return (-1);
 	return (0);
 }
