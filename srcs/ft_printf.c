@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 15:04:04 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/31 23:35:22 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/02/01 19:45:35 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static int	check_not_valid(const char *format, size_t *i,
 		if (-1 == addchars(&format[*i], ft_strlen(&format[*i])))
 			return (-1);
 		*last_w = *i;
+		free(info);
 	}
 	return (1);
 }
