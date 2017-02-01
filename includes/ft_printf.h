@@ -17,6 +17,7 @@
 
 # include <stdarg.h>
 # include "libft.h"
+# include <inttypes.h>
 
 typedef struct	s_info
 {
