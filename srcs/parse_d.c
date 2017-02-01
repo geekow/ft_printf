@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:42:23 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/31 05:15:48 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/02/01 17:46:09 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,7 @@ int					parse_d(t_info *info, va_list args)
 	int			size[2];
 
 	d = get_data(info->lenght_modifs, args);
-	str = ft_itoa(d);
-	if (info->precision != -1 || info->flag_minus)
+	if ((str = ft_itoa(d)) && (info->precision != -1 || info->flag_minus))
 	{
 		if (!trt_one(info, str, size, d) || !trt_two(info, d, &str, size))
 			return (-1);
@@ -142,5 +141,6 @@ info->min_size < (size[1] + (int)ft_strlen(str))) && -1 == addchar('+', 1))
 		if (-1 == addchars(str, ft_strlen(str)))
 			return (-1);
 	}
+	(d < 0 && str[0] != '-') ? free(--str) : free(str);
 	return (0);
 }
