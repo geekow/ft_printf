@@ -6,14 +6,14 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 06:01:12 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/31 23:24:28 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/02/01 20:06:26 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft.h"
 
-int		print_all(t_list **listadd)
+int		print_all(t_list **listadd, int fd)
 {
 	int		result;
 	t_list	*list;
@@ -24,7 +24,7 @@ int		print_all(t_list **listadd)
 	result = 0;
 	while (list)
 	{
-		i = write(1, list->content, list->content_size);
+		i = write(fd, list->content, list->content_size);
 		if (i != list->content_size)
 			return (-1);
 		result += list->content_size;
@@ -37,7 +37,7 @@ int		print_all(t_list **listadd)
 	return (result);
 }
 
-int		write_or_stock_all(const char *str, int nb, char print)
+int		write_or_stock_all(const char *str, int nb, char print, int fd)
 {
 	static t_list	*begin = NULL;
 	static t_list	*list = NULL;
@@ -46,7 +46,7 @@ int		write_or_stock_all(const char *str, int nb, char print)
 	{
 		list = begin;
 		begin = NULL;
-		return (print_all(&list));
+		return (print_all(&list, fd));
 	}
 	if (!begin)
 	{
@@ -68,7 +68,7 @@ int		addchars(const char *str, int nb)
 {
 	if (nb <= 0)
 		return (1);
-	if (write_or_stock_all(str, nb, 0) == -1)
+	if (write_or_stock_all(str, nb, 0, 1) == -1)
 		return (-1);
 	else
 		return (nb);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_dprintf.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/08 15:04:04 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/02/01 20:13:56 by jjacobi          ###   ########.fr       */
+/*   Created: 2017/02/01 20:13:15 by jjacobi           #+#    #+#             */
+/*   Updated: 2017/02/01 20:13:50 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	save_last_pos_and_free(size_t i, t_info *info)
 	return (i);
 }
 
-int			ft_printf(const char *format, ...)
+int			ft_dprintf(int fd, const char *format, ...)
 {
 	va_list	args;
 	size_t	last_w;
@@ -101,5 +101,5 @@ int			ft_printf(const char *format, ...)
 	}
 	va_end(args);
 	return (add_last_info(format, last_w, i) == -1
-			|| !valid_str("", 1) ? -1 : write_or_stock_all(NULL, 0, 1, 1));
+			|| !valid_str("", 1) ? -1 : write_or_stock_all(NULL, 0, 1, fd));
 }
