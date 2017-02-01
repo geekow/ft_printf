@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:42:18 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/01/31 22:01:12 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/02/01 14:55:37 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ int					parse_u(t_info *info, va_list args)
 		if (-1 == addchars(str, ft_strlen(str)))
 			return (-1);
 	}
+	free(str);
 	return (0);
 }
