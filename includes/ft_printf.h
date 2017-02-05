@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 16:21:23 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/02/01 20:11:20 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/02/05 01:03:43 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int				ft_dprintf(int fd, const char *format, ...);
 int				parse(t_info *info, va_list args);
 int				parse_noconv(t_info *info, char c);
 int				addchars(const char *str, int nb);
-int				addunicode(int c);
+int				addunicode(wchar_t c);
 int				addchar(char c, int nb);
 int				write_or_stock_all(const char *str, int nb, char print, int fd);
 char			*unsigned_itoa(unsigned long long n);

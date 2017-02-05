@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 01:43:06 by jjacobi           #+#    #+#             */
-/*   Updated: 2017/02/03 03:53:49 by jjacobi          ###   ########.fr       */
+/*   Updated: 2017/02/05 01:02:36 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ int			parse_s(t_info *info, va_list args)
 		return (-1);
 	if (wstr)
 		while (i[0] && wstr && wstr[i[1]] && i[1] < info->precision)
-			if (wstr[0] < 0 || wstr[0] > 1114111 ||
-					((i[3] = addunicode((int)wstr[i[1]++])) && i[3] == -1))
+			if (wstr[i[1]] < 0 || wstr[i[1]] > 1114111 ||
+					((i[3] = addunicode(wstr[i[1]++])) && i[3] == -1))
 				return (-1);
 			else
 				i[0] -= i[3];
